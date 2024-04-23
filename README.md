@@ -1,2 +1,3 @@
 # PlaneDataProject
  
+pip install xgboost
