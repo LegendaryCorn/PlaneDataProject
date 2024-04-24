@@ -6,8 +6,10 @@
 
 import numpy as np
 from sklearn.model_selection import train_test_split
+from sklearn.decomposition import PCA
 
 from classifier import Classifier
+from dimreduce import DimReduce
 import results
 
 def main():
@@ -27,9 +29,18 @@ def main():
     X_train, X_rest, y_train, y_rest = train_test_split(flatX, y, test_size=.4) # 60% training data
     X_valid, X_test, y_valid, y_test = train_test_split(X_rest, y_rest, test_size=.5) # 20% validation data, 20% testing data
 
-    model = Classifier(estimators=4, depth=4, lr=1)
-    model.train(X_train, y_train)
-    preds, acc = model.test(X_valid, y_valid)
+    # Dimensionality Reduction
+    # none , pca , lda , isomap
+    dim_reduce = DimReduce("pca", 20)
+    dim_reduce.fit(X_train, y_train)
+    dX_train = dim_reduce.reduce(X_train)
+    dX_valid = dim_reduce.reduce(X_valid)
+    dX_test = dim_reduce.reduce(X_test)
+
+    # Classification
+    model = Classifier(estimators=4, depth=20, lr=1.0)
+    model.train(dX_train, y_train)
+    preds, acc = model.test(dX_valid, y_valid)
     results.accuracy(y_valid,preds,acc)
 
 if __name__ == "__main__":
