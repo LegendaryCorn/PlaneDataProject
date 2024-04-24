@@ -24,12 +24,13 @@ def main():
 
     flatX = X.reshape(X.shape[0], X.shape[1] * X.shape[2]) # Turns the 2D data into 1D data
 
-    X_train, X_test, y_train, y_test = train_test_split(flatX, y, test_size=.2)
+    X_train, X_rest, y_train, y_rest = train_test_split(flatX, y, test_size=.4) # 60% training data
+    X_valid, X_test, y_valid, y_test = train_test_split(X_rest, y_rest, test_size=.5) # 20% validation data, 20% testing data
 
-    model = Classifier(estimators=2, depth=4, lr=1)
+    model = Classifier(estimators=4, depth=4, lr=1)
     model.train(X_train, y_train)
-    preds, acc = model.test(X_test, y_test)
-    results.accuracy(y_test,preds,acc)
+    preds, acc = model.test(X_valid, y_valid)
+    results.accuracy(y_valid,preds,acc)
 
 if __name__ == "__main__":
     main()

@@ -18,5 +18,3 @@ class Classifier:
         preds = self.bst.predict(X_test)
         acc = np.equal(y_test, preds)
         return preds, acc
-        print(y_test)
-        print(preds)
