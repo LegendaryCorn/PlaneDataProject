@@ -39,7 +39,7 @@ def main():
 
     # Classification
     model = Classifier(estimators=4, depth=20, lr=1.0)
-    model.train(dX_train, y_train)
+    model.train(dX_train, y_train, dX_valid, dX_test, y_valid, y_test)
     preds, acc = model.test(dX_valid, y_valid)
     results.accuracy(y_valid,preds,acc)
 
