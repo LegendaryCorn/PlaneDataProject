@@ -30,9 +30,10 @@ def main():
     X_valid, X_test, y_valid, y_test = train_test_split(X_rest, y_rest, test_size=.5) # 20% validation data, 20% testing data
 
     # Dimensionality Reduction
-    # none , pca , lda , isomap
-    dim_reduce = DimReduce("pca", 20)
+    # none , pca , lda , isomap, autoencoder
+    dim_reduce = DimReduce("autoencoder", 20)
     dim_reduce.fit(X_train, y_train)
+
     dX_train = dim_reduce.reduce(X_train)
     dX_valid = dim_reduce.reduce(X_valid)
     dX_test = dim_reduce.reduce(X_test)
