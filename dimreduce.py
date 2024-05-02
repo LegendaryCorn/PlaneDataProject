@@ -5,6 +5,8 @@
 ####################################################################
 
 from sklearn.decomposition import PCA
+from sklearn.decomposition import TruncatedSVD
+from sklearn.decomposition import FastICA
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.manifold import Isomap
 
@@ -44,6 +46,10 @@ class DimReduce:
             self.red = PCA(n_components=dims)
         elif(type == "lda"):
             self.red = LinearDiscriminantAnalysis(n_components=dims)
+        elif(type == "tsvd"):
+            self.red = TruncatedSVD(n_components=dims)
+        elif(type == "fica"):
+            self.red = FastICA(n_components=dims)
         elif(type == "isomap"):
             self.red = Isomap(n_components=dims, n_neighbors=500, max_iter=1, n_jobs=-1)
         elif(type == "autoencoder"):
