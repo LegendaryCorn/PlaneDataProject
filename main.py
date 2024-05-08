@@ -7,11 +7,22 @@
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.decomposition import PCA
+import time
 
 from classifier import Classifier
 from dimreduce import DimReduce
 import results
 
+def record_time(func):
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        end_time = time.time()
+        print(f"{func.__name__} execution time: {end_time - start_time:.4f} seconds")
+        return result
+    return wrapper
+
+@record_time
 def main():
     np.random.seed(0) # Consistency
 
